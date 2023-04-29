@@ -1,0 +1,1 @@
+em++ ../../../min_example/glfw3_webgl2_ver.cpp -o hello.html -s USE_WEBGL2=1 -s USE_GLFW=3 -s WASM=1 -std=c++1z

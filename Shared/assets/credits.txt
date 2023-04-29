@@ -1,0 +1,3 @@
+Textures:
+wooden crate: learnopengl.com
+floortiles: https://vangelostudio.com/tiles/
