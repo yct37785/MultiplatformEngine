@@ -54,5 +54,5 @@ unsigned int Mesh::getVAO() const
 
 int Mesh::getTotalVertices() const
 {
-	return vertices.size();
+	return indices.size();
 }
