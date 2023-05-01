@@ -80,7 +80,6 @@ void SceneLightMap::UpdateViewMatrix()
 	camera.genLookUpMatrix(view);
 }
 
-bool errorMsg = false;
 void SceneLightMap::Draw()
 {
 	// use shader
@@ -110,7 +109,6 @@ void SceneLightMap::Draw()
 	DrawAxes(0.f, 90.f, MAT_BLUE_COLOR);
 	DrawAxes(90.f, 0.f, MAT_RED_COLOR);
 	glLineWidth(1.f);
-	errorMsg = true;
 }
 
 void SceneLightMap::DrawFloor(float floorY, MAT_TYPES matType)
@@ -121,16 +119,12 @@ void SceneLightMap::DrawFloor(float floorY, MAT_TYPES matType)
 
 	glBindVertexArray(MeshBuilder::instance()->getMesh(MESH_QUAD_INFINITE_FLOOR)->getVAO());
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, MeshBuilder::instance()->getMesh(MESH_QUAD_INFINITE_FLOOR)->getEBO());;
-	if (!errorMsg)
-		std::cout << glGetError() << std::endl;
 
 	ShaderManager::instance()->setUniformMatrix4fv(SHADER_LIGHT_MAP, "model", transformMat);
 	ShaderManager::instance()->setUniformMatrix4fv(SHADER_LIGHT_MAP, "normalMat", normalMat);
 	MaterialBuilder::instance()->LoadMaterial(matType);
 
 	glDrawElements(GL_TRIANGLES, MeshBuilder::instance()->getMesh(MESH_QUAD_INFINITE_FLOOR)->getTotalVertices(), GL_UNSIGNED_INT, 0);
-	if (!errorMsg)
-		std::cout << glGetError() << std::endl;
 }
 
 void SceneLightMap::DrawAxes(float pitch, float yaw, MAT_TYPES colorMat)

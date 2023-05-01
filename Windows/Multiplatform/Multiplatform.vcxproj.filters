@@ -34,6 +34,9 @@
     <Filter Include="TopLevel">
       <UniqueIdentifier>{b48b346c-fe68-4714-a418-08d23bc01e67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Projects">
+      <UniqueIdentifier>{ae927c28-60f1-4ff0-b10d-1df792e2ad84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Shared\source\camera\Camera.cpp">
