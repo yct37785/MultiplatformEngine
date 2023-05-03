@@ -1,5 +1,5 @@
 #pragma once
-#include "Scene.h"
+#include <scenes/Scene.h>
 
 /*
 * Very basic triangle draw. To learn about the basics of opengl.
