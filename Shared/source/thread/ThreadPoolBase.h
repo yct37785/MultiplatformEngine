@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef PLATFORM_WINDOWS
-#include "../../../Windows/Multiplatform/ctpl_stl.h"
+#include "../../../Windows/src/ctpl_stl.h"
 #elif __EMSCRIPTEN__
 #include <emscripten.h>
 #include <emscripten/wasm_worker.h>
