@@ -1,14 +1,14 @@
-#include "SceneSample3D.h"
+#include "SceneTemplate.h"
 
-SceneSample3D::SceneSample3D()
+SceneTemplate::SceneTemplate()
 {
 }
 
-SceneSample3D::~SceneSample3D()
+SceneTemplate::~SceneTemplate()
 {
 }
 
-void SceneSample3D::Init()
+void SceneTemplate::Init()
 {
 	// any flags please set here
 
@@ -24,7 +24,7 @@ void SceneSample3D::Init()
 	LogInfo("Scene initialized");
 }
 
-void SceneSample3D::InitObjects()
+void SceneTemplate::InitObjects()
 {
 	// objects
 	cubes[0].Init(MESH_CUBE, MAT_WOODEN_CRATE, glm::vec3(1.f, 1.f, 1.f), glm::vec3(2.f, 0.4f, 0.f), 5.f, -10.f);
@@ -41,7 +41,7 @@ void SceneSample3D::InitObjects()
 	lightSpecular = 1.f;
 }
 
-void SceneSample3D::Update(bool inputList[INPUT_TOTAL], float deltaTime)
+void SceneTemplate::Update(bool inputList[INPUT_TOTAL], float deltaTime)
 {
 	// test some changes
 	// last
@@ -49,12 +49,12 @@ void SceneSample3D::Update(bool inputList[INPUT_TOTAL], float deltaTime)
 	UpdateTransformation(deltaTime);
 }
 
-void SceneSample3D::mouse_callback(double xpos, double ypos)
+void SceneTemplate::mouse_callback(double xpos, double ypos)
 {
 	camera.mouse_callback(xpos, ypos);
 }
 
-void SceneSample3D::UpdateTransformation(float deltaTime)
+void SceneTemplate::UpdateTransformation(float deltaTime)
 {
 	// spin
 	cubes[0].rotate(deltaTime * 12.f, 0.f);
@@ -72,7 +72,7 @@ void SceneSample3D::UpdateTransformation(float deltaTime)
 	UpdateViewMatrix();
 }
 
-void SceneSample3D::UpdateViewMatrix()
+void SceneTemplate::UpdateViewMatrix()
 {
 	// lookat matrix
 	// we create a matrix with the above 3 perpendicular axes + translation vector
@@ -81,7 +81,7 @@ void SceneSample3D::UpdateViewMatrix()
 	camera.genLookUpMatrix(view);
 }
 
-void SceneSample3D::Draw()
+void SceneTemplate::Draw()
 {
 	// use shader
 	ShaderManager::instance()->useShader(SHADER_LIGHT_MAP);
@@ -112,7 +112,7 @@ void SceneSample3D::Draw()
 	glLineWidth(1.f);
 }
 
-void SceneSample3D::DrawFloor(float floorY, MAT_TYPES matType)
+void SceneTemplate::DrawFloor(float floorY, MAT_TYPES matType)
 {
 	glm::mat4 transformMat = glm::mat4(1.f);
 	transformMat = glm::translate(transformMat, glm::vec3(0.f, floorY, 0.f));
@@ -127,7 +127,7 @@ void SceneSample3D::DrawFloor(float floorY, MAT_TYPES matType)
 	glDrawElements(GL_TRIANGLES, MeshBuilder::instance()->getMesh(MESH_QUAD_INFINITE_FLOOR)->getTotalVertices(), GL_UNSIGNED_INT, 0);
 }
 
-void SceneSample3D::DrawAxes(float pitch, float yaw, MAT_TYPES colorMat)
+void SceneTemplate::DrawAxes(float pitch, float yaw, MAT_TYPES colorMat)
 {
 	glm::vec3 axesScale(10000.0, 1.0, 1.0);
 	glm::mat4 transformMat = glm::mat4(1.f);
@@ -143,7 +143,7 @@ void SceneSample3D::DrawAxes(float pitch, float yaw, MAT_TYPES colorMat)
 	glDrawElements(GL_LINES, MeshBuilder::instance()->getMesh(MESH_LINE)->getTotalVertices(), GL_UNSIGNED_INT, 0);
 }
 
-void SceneSample3D::windowsResize()
+void SceneTemplate::windowsResize()
 {
 	// proj
 	projection = glm::perspective(glm::radians(45.f), (float)windowsWidth / (float)windowsHeight, 0.1f, 100.f);
