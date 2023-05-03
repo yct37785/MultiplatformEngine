@@ -18,7 +18,6 @@ set(vs_project_dir ${project_name})
 set(windows_includes_dir includes)
 set(shared_includes_dir ../Shared/includes)
 set(shared_src_dir ../Shared/source)
-set(projectselector_dir ../ProjectSelector)
 set(project_dir ../Projects/Sample)
 
 # group files into one var
@@ -53,6 +52,7 @@ set(SHARED_OBJECT_FILES
 set(SHARED_SCENE_FILES
 		${shared_src_dir}/scenes/Scene.cpp
 		${shared_src_dir}/scenes/Scene.h
+		${shared_src_dir}/scenes/ProjectSelector.h
 		)
 set(SHARED_SHADER_FILES
 		${shared_src_dir}/shader/Shader.cpp
@@ -82,12 +82,10 @@ SET(PLATFORM_FILES
 		src/OSEngine.h
 		src/stb_image.cpp
 		)
-set(PROJECTSELECTOR_FILES
-        ${projectselector_dir}/ProjectSelector.h
-		)
 set(PROJECT_FILES
-        ${project_dir}/SceneLightMap.cpp
-        ${project_dir}/SceneLightMap.h
+        ${project_dir}/SceneSample3D.cpp
+        ${project_dir}/SceneSample3D.h
+        ${project_dir}/ProjectSelector.cpp
 		)
 
 # set VS filters
@@ -102,7 +100,6 @@ source_group("Texture" FILES ${SHARED_TEXTURE_FILES})
 source_group("Thread" FILES ${SHARED_THREAD_FILES})
 source_group("Top" FILES ${SHARED_TOP_FILES})
 source_group("Platform" FILES ${PLATFORM_FILES})
-source_group("ProjectSelector" FILES ${PROJECTSELECTOR_FILES})
 source_group("Project" FILES ${PROJECT_FILES})
 
 # generate executable for this project
@@ -118,7 +115,6 @@ add_executable(${project_name}
 		${SHARED_THREAD_FILES}
 		${SHARED_TOP_FILES}
 		${PLATFORM_FILES}
-		${PROJECTSELECTOR_FILES}
 		${PROJECT_FILES}
 		)
 
@@ -127,7 +123,6 @@ target_include_directories(${project_name} PRIVATE
         ${windows_includes_dir}
 		${shared_includes_dir}
 		${shared_src_dir}
-		${projectselector_dir}
         )
 
 # retrieve path vars of non pre-built/system libs

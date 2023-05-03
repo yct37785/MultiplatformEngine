@@ -2,9 +2,9 @@
 #include <scenes/Scene.h>
 
 /*
-* Very basic triangle draw. To learn about the basics of opengl.
+* Sample scene 3D
 */
-class SceneLightMap : public Scene
+class SceneSample3D : public Scene
 {
 	// an object
 	const static int total_gameObjects = 5;
@@ -31,8 +31,8 @@ class SceneLightMap : public Scene
 	void DrawAxes(float pitch, float yaw, MAT_TYPES colorMat);
 
 public:
-	SceneLightMap();
-	~SceneLightMap();
+	SceneSample3D();
+	~SceneSample3D();
 
 	void Init();
 	void Update(bool inputList[INPUT_TOTAL], float deltaTime);
