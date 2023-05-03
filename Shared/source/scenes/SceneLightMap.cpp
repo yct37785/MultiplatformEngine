@@ -43,6 +43,7 @@ void SceneLightMap::InitObjects()
 
 void SceneLightMap::Update(bool inputList[INPUT_TOTAL], float deltaTime)
 {
+	// test some changes
 	// last
 	camera.UpdateInput(inputList, deltaTime);
 	UpdateTransformation(deltaTime);
