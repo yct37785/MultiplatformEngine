@@ -18,7 +18,7 @@ set(vs_project_dir ${project_name})
 set(windows_includes_dir includes)
 set(shared_includes_dir ../Shared/includes)
 set(shared_src_dir ../Shared/source)
-set(project_dir ../Projects/Sample)
+set(project_dir ../Projects/Sample3D_Project)
 
 # group files into one var
 set(SHARED_CAMERA_FILES

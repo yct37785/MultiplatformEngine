@@ -1,2 +1,2 @@
 if __name__ == '__main__':
-    print('Selected project')
+    print("Selected project")
