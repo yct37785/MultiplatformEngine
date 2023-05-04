@@ -2,9 +2,12 @@ import os
 import shutil
 import math
 import re
+# general
 project_dir = '../Projects'
 template_dir = 'template'
 sample_projects_dir = 'sample_projects'
+# windows
+windows_sample_cmake_path = 'windows_CMakeLists.txt'
 windows_cmake_path = '../Windows/CMakeLists.txt'
 windows_vs_path = '../Windows/Multiplatform'
 
@@ -28,8 +31,9 @@ def create_new_project(project_name):
 
 
 def set_project(project_name):
+    print("> Startup project set as {}".format(project_name))
     # Windows cmake
-    with open(windows_cmake_path, 'r') as f:
+    with open(windows_sample_cmake_path, 'r') as f:
         windows_cmake_content = f.read()
         # replace set project_dir
         s = windows_cmake_content.find('set(project_dir ../Projects/')
@@ -55,8 +59,6 @@ def set_project(project_name):
     print("> VS 2022 project generated")
     # Android cmake
     # emcc
-    print("> Startup project set as {}".format(project_name))
-    print("VS 2022 project Multiplatform created in [root]/Windows")
     print("> actions required:")
     print(" > * Android: run gradle sync before building")
     print(" > * Web: generate new wasm files")
