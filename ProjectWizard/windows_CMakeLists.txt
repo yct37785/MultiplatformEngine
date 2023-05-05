@@ -11,14 +11,15 @@ project(${project_name})
 ADD_DEFINITIONS(-DPLATFORM_WINDOWS=1)
 
 # VS directory
-set(vs_project_dir VS/${project_name})
+set(vs_project_dir ./)
 
 # include directories
 # eg. include <directories/myfile.h>
-set(windows_includes_dir includes)
-set(shared_includes_dir ../Shared/includes)
-set(shared_src_dir ../Shared/source)
-set(project_dir ../Projects/${project_name})
+set(windows_includes_dir ../../includes)
+set(shared_includes_dir ../../../Shared/includes)
+set(shared_src_dir ../../../Shared/source)
+set(windows_src_dir ../../src)
+set(project_dir ../../../Projects/${project_name})
 
 # group files into one var
 set(SHARED_CAMERA_FILES
@@ -75,12 +76,12 @@ set(SHARED_TOP_FILES
 		${shared_src_dir}/top/Utility.h
 		)
 SET(PLATFORM_FILES
-		src/ctpl_stl.h
-		src/glad.c
-		src/main.cpp
-		src/OSEngine.cpp
-		src/OSEngine.h
-		src/stb_image.cpp
+		${windows_src_dir}/ctpl_stl.h
+		${windows_src_dir}/glad.c
+		${windows_src_dir}/main.cpp
+		${windows_src_dir}/OSEngine.cpp
+		${windows_src_dir}/OSEngine.h
+		${windows_src_dir}/stb_image.cpp
 		)
 set(PROJECT_FILES
 		<project files here>
@@ -126,7 +127,7 @@ target_include_directories(${project_name} PRIVATE
 # retrieve path vars of non pre-built/system libs
 find_library(glfw3d-lib NAMES glfw3d.lib
 		PATHS
-        libs/GLFW
+        ../../libs/GLFW
 		)
 
 # link libs to the program

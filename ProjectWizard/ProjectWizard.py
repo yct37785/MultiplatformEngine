@@ -9,11 +9,13 @@ template_dir = 'template'
 sample_projects_dir = 'sample_projects'
 windows_sample_cmake_path = 'windows_CMakeLists.txt'
 # Windows
-windows_tmp_cmake_path = '../Windows/CMakeLists.txt'
 windows_vs_path = '../Windows/VS'
 
 
-def create_new_project(project_name):
+'''
+create new project from template in [root]/Projects
+'''
+def create_new_project_files(project_name):
     # copy over template
     new_dir = projects_dir + '/' + project_name
     shutil.copytree(template_dir, new_dir)
@@ -32,6 +34,9 @@ def create_new_project(project_name):
     print("> Project {} has been created in [root]/Projects".format(project_name))
 
 
+'''
+create new VS sln for project in [root]/Windows/VS
+'''
 def create_project_vs(project_name):
     project_vs_path = windows_vs_path + '/' + project_name
     # open sample cmake and replace with project specific files
@@ -48,27 +53,44 @@ def create_project_vs(project_name):
         set_project_files = 'set(PROJECT_FILES\n' + ''.join("\t\t${project_dir}/" + x + "\n" for x in files) + \
             '\t\t'
         windows_cmake_content = windows_cmake_content[:s] + set_project_files + windows_cmake_content[e:]
-    # create tmp cmake
-    with open(windows_tmp_cmake_path, 'w') as f:
-        f.write(windows_cmake_content)
-    # build VS project for Windows
+    # create empty VS project folder
     if not os.path.exists(project_vs_path):
         os.makedirs(project_vs_path)
+    # create cmake file in VS project folder
+    with open(project_vs_path + '/CMakeLists.txt', 'w') as f:
+        f.write(windows_cmake_content)
+    # build VS project for Windows
     print("> Generating VS 2022 project for {}...".format(project_name))
     os.system("cd " + project_vs_path + " && " + \
-              "cmake ../../CMakeLists.txt -G \"Visual Studio 17 2022\"")
-    print("> VS 2022 project generated")
+              "cmake CMakeLists.txt -G \"Visual Studio 17 2022\"")
+    print("> VS 2022 project for {} generated".format(project_name))
 
 
+'''
+setup for new user
+'''
 def setup_new_user():
     # check for [root]/Projects folder, if not found = new user
     if os.path.exists(projects_dir):
         return
-    print("[New user detected]")
+    print("[new user detected]")
     shutil.copytree(sample_projects_dir, projects_dir)
     print("> Projects folder created populated with sample projects")
     # create vs for sample projects
     create_project_vs('Sample3D')
+
+
+'''
+create new project wizard
+'''
+def create_new_project_wizard():
+    print("> Enter new project name (no spaces, use CamelCase, no numeric as 1st chr): ")
+    new_name = input()
+    if not new_name.isalnum() or new_name[0].isnumeric():
+        print("> invalid project name")
+        return
+    create_new_project_files(new_name)
+    create_project_vs(new_name)
 
 
 '''
@@ -81,29 +103,27 @@ note that project names are the SAME as it's root folder and entrypoint!
 if __name__ == '__main__':
     # setup new user if haven't
     setup_new_user()
-    # project selection screen
-    # while True:
-    #     all_projects = next(os.walk(project_dir))[1]
-    #     print("[Select start project]")
-    #     for i in range(len(all_projects)):
-    #         print("{}) {}".format(i + 1, all_projects[i]))
-    #     print("{}) {}".format(len(all_projects) + 1, "new project"))
-    #     print("Select choice: ")
-    #     choice = int(input()) - 1
-    #     if math.isnan(choice):
-    #         print("> invalid input")
-    #     # selected existing project
-    #     elif choice < len(all_projects):
-    #         print("Selected " + all_projects[choice])
-    #         set_project(all_projects[choice])
-    #         break
-    #     # selected new project
-    #     elif choice == len(all_projects):
-    #         print("Enter new project name (no spaces, use CamelCase, no numeric as 1st chr): ")
-    #         new_name = input()
-    #         if not new_name.isalnum() or new_name[0].isnumeric():
-    #             print("> invalid project name")
-    #         else:
-    #             create_new_project(new_name)
-    #             set_project(new_name)
-    #             break
+    # configuration screen
+    while True:
+        print("[select options]")
+        print("* (1) create new project")
+        print("* (2) recreate VS sln for project")
+        print("* (3) configure Android for project")
+        print("* (4) configure WASM for project")
+        print("* (5) update VS sln for all projects")
+        print("* (6) quit")
+        choice = int(input())
+        if math.isnan(choice) or choice < 1 or choice > 6:
+            print("> invalid input")
+        elif choice == 1:
+            create_new_project_wizard()
+        elif choice == 2:
+            pass
+        elif choice == 3:
+            pass
+        elif choice == 4:
+            pass
+        elif choice == 5:
+            pass
+        elif choice == 6:
+            break
