@@ -13,6 +13,21 @@ windows_vs_path = '../Windows/VS'
 
 
 '''
+utils
+'''
+def select_project_menu():
+    all_projects = next(os.walk(projects_dir))[1]
+    print("> Select project:")
+    for i in range(len(all_projects)):
+        print("* ({}) {}".format(i + 1, all_projects[i]))
+    choice = int(input())
+    if math.isnan(choice) or choice < 1 or choice > len(all_projects):
+        print("> invalid input")
+        return None
+    return all_projects[choice - 1]
+
+
+'''
 create new project from template in [root]/Projects
 '''
 def create_new_project_files(project_name):
@@ -94,6 +109,19 @@ def create_new_project_wizard():
 
 
 '''
+configure Android
+We do not create individual Android Studio sln for each project as Android Studio is only used
+for releasing an Android build for the specified project, not for editing like in VS
+'''
+def configure_project_for_android(project_name):
+    pass
+
+
+def configure_project_for_android_wizard():
+    project_name = select_project_menu()
+    print(project_name)
+
+'''
 project selection/creation wizard
 note that project names are the SAME as it's root folder and entrypoint!
 * for example, the project Sample3D:
@@ -120,7 +148,8 @@ if __name__ == '__main__':
         elif choice == 2:
             pass
         elif choice == 3:
-            pass
+            configure_project_for_android_wizard()
+            break
         elif choice == 4:
             pass
         elif choice == 5:
