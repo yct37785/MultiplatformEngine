@@ -4,21 +4,21 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 # This will give our project a name
-set(project_name Multiplatform)
+set(project_name <project name here>)
 project(${project_name})
 
 # preprocessor definitions
 ADD_DEFINITIONS(-DPLATFORM_WINDOWS=1)
 
 # VS directory
-set(vs_project_dir ${project_name})
+set(vs_project_dir VS/${project_name})
 
 # include directories
 # eg. include <directories/myfile.h>
 set(windows_includes_dir includes)
 set(shared_includes_dir ../Shared/includes)
 set(shared_src_dir ../Shared/source)
-set(project_dir ../Projects/<project name here>)
+set(project_dir ../Projects/${project_name})
 
 # group files into one var
 set(SHARED_CAMERA_FILES

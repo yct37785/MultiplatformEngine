@@ -49,8 +49,8 @@
 static int windowsWidth = 1280;
 static int windowsHeight = 720;
 #ifdef PLATFORM_WINDOWS
-const static std::string assetsPath = "../../shared/assets";
-const static std::string shaderspath = "../../shared/shaders";
+const static std::string assetsPath = "../../../shared/assets";
+const static std::string shaderspath = "../../../shared/shaders";
 #elif PLATFORM_ANDROID
 const static std::string assetsPath = "assets";
 const static std::string shaderspath = "shaders";
