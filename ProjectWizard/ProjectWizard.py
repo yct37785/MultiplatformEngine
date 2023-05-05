@@ -53,11 +53,10 @@ def create_project_vs(project_name):
         f.write(windows_cmake_content)
     # build VS project for Windows
     if not os.path.exists(project_vs_path):
-        os.mkdir(project_vs_path)
+        os.makedirs(project_vs_path)
     print("> Generating VS 2022 project for {}...".format(project_name))
     os.system("cd " + project_vs_path + " && " + \
-              "cmake ../../CMakeLists.txt -G \"Visual Studio 17 2022\" && " + \
-              "cmake --build .")
+              "cmake ../../CMakeLists.txt -G \"Visual Studio 17 2022\"")
     print("> VS 2022 project generated")
 
 
