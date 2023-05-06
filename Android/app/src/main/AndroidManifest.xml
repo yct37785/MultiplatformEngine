@@ -20,7 +20,7 @@
 
             <!-- Tell NativeActivity the name of or .so -->
             <meta-data android:name="android.app.lib_name"
-                android:value="multiplatform-lib" />
+                android:value="Sample3D" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

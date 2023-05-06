@@ -47,7 +47,7 @@ void Engine::Init()
 	MaterialBuilder::instance()->Init();
 	ShaderManager::instance()->Init();
 
-	scene = new SceneLightMap();
+	scene = ProjectSelector::getProjectScene();
 	scene->Init();
 }
 

@@ -40,4 +40,3 @@ public:
 	void Init();
 	void Run();
 };
-

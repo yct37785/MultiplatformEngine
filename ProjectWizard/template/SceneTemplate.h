@@ -1,10 +1,10 @@
 #pragma once
-#include "Scene.h"
+#include <scenes/Scene.h>
 
 /*
-* Very basic triangle draw. To learn about the basics of opengl.
+* Sample scene 3D
 */
-class SceneLightMap : public Scene
+class SceneTemplate : public Scene
 {
 	// an object
 	const static int total_gameObjects = 5;
@@ -31,8 +31,8 @@ class SceneLightMap : public Scene
 	void DrawAxes(float pitch, float yaw, MAT_TYPES colorMat);
 
 public:
-	SceneLightMap();
-	~SceneLightMap();
+	SceneTemplate();
+	~SceneTemplate();
 
 	void Init();
 	void Update(bool inputList[INPUT_TOTAL], float deltaTime);
