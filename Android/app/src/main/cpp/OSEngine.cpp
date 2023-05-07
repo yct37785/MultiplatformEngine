@@ -32,7 +32,7 @@ void OSEngine::createDisplay()
         X_to_Y_ratio = windowsWidth / windowsHeight;
 
         // assume width always more than height
-        // we want width to match the scren ratio
+        // we want width to match the screen ratio
         if(windowsWidth > windowsHeight) {
             // new_cameraWidth = Screen::CAMERA_HEIGHT * X_to_Y_ratio;
         }

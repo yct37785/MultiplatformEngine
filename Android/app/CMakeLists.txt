@@ -24,6 +24,10 @@ set(shared_src_dir ../../Shared/source)
 set(android_src_dir src/main/cpp)
 set(project_dir ../../Projects/${project_name})
 
+# Add the packages from AGDK
+find_package(games-frame-pacing REQUIRED CONFIG)
+find_package(games-performance-tuner REQUIRED CONFIG)
+
 # build native_app_glue as a static lib (Android includes it as source code only, must built into a .so lib)
 add_library(app-glue STATIC
         ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c
@@ -172,4 +176,6 @@ target_link_libraries(${project_name}
         ndk-helper
         dependency-lib
         ${log-lib}
+		games-frame-pacing::swappy_static
+		games-performance-tuner::tuningfork_static
 		)

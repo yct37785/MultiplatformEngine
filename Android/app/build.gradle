@@ -5,6 +5,7 @@ plugins {
 android {
     namespace 'com.example.multiplatform'
     compileSdk 33
+    ndkVersion '23.2.8568313'
 
     defaultConfig {
         applicationId "com.example.multiplatform"
@@ -35,6 +36,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+        // To use the Android Frame Pacing or Android Performance Tuner libraries, enable
+        // native dependencies to be imported. Libraries will be made available to your CMake build
+        // as packages named "games-frame-pacing" and "games-performance-tuner".
+        prefab true
     }
 }
 
@@ -43,6 +48,13 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+    // AGDK libs
+    implementation "androidx.games:games-frame-pacing:2.0.0"
+    implementation "androidx.games:games-performance-tuner:1.6.0"
+    implementation "androidx.games:games-activity:2.0.1"
+    implementation "androidx.games:games-controller:2.0.0"
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
