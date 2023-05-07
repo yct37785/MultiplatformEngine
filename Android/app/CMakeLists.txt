@@ -90,9 +90,10 @@ set(SHARED_TOP_FILES
 		)
 SET(PLATFORM_FILES
         ${android_src_dir}/AndroidUtils.cpp
-        ${android_src_dir}/OSEngine.cpp
+        ${android_src_dir}/OSEngine2.cpp
         ${android_src_dir}/stb_image.cpp
-        ${android_src_dir}/Main.cpp
+        ${android_src_dir}/android_main.cpp
+		${android_src_dir}/jni_util.cpp
 		)
 set(PROJECT_FILES
 		${project_dir}/ProjectSelector.cpp
@@ -124,6 +125,7 @@ target_include_directories(${project_name} PRIVATE
         ${shared_src_dir}
         ${shared_includes_dir}
         ${shared_includes_dir}/glm
+		${shared_includes_dir}/common
         ${android_includes_dir}
         )
 
