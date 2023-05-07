@@ -50,6 +50,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
     // AGDK libs
+    implementation 'androidx.core:core:1.10.0'
     implementation "androidx.games:games-frame-pacing:2.0.0"
     implementation "androidx.games:games-performance-tuner:1.6.0"
     implementation "androidx.games:games-activity:2.0.1"
