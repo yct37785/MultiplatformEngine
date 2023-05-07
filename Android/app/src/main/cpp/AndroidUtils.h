@@ -10,7 +10,7 @@ Author: Tan Yie Cher/Android-NDK
 Date: 1/7/2017
 
 -DeltaClock: get elapse time
-/***************************************************************************************************************/
+***************************************************************************************************************/
 // Clean up a resource (delete and set to null).
 template<typename T> void CleanUp(T** pptr) {
     if (*pptr) {

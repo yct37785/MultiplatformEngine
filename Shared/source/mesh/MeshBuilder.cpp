@@ -109,8 +109,6 @@ Mesh* MeshBuilder::genCube()
 
 Mesh* MeshBuilder::genSphere()
 {
-    unsigned int VBO, EBO, VAO;
-
     std::vector<float> vertices; // x, y, z, nx, ny, nz, s, t
 	float radius = 0.5f;
 	int sectorCount = 36;
