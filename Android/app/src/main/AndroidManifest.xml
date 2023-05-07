@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Multiplatform"
         tools:targetApi="31">
         <activity
-            android:name=".MultiplatformNativeActivity"
+            android:name=".MultiplatformGameActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden"
             android:exported="true">
