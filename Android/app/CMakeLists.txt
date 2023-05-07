@@ -27,6 +27,7 @@ set(project_dir ../../Projects/${project_name})
 # Add the packages from AGDK
 find_package(games-frame-pacing REQUIRED CONFIG)
 find_package(games-performance-tuner REQUIRED CONFIG)
+find_package(game-activity REQUIRED CONFIG)
 
 # build native_app_glue as a static lib (Android includes it as source code only, must built into a .so lib)
 add_library(app-glue STATIC
@@ -156,26 +157,14 @@ target_include_directories(${project_name} PRIVATE
         ${ndk_helper_dir}
         )
 
-# Searches for a specified prebuilt library and stores the path as a
-# variable. Because CMake includes system libraries in the search path by
-# default, you only need to specify the name of the public NDK library
-# you want to add. CMake verifies that the library exists before
-# completing its build.
-find_library(log-lib
-        log
-		)
-
 # link libs to the program
 target_link_libraries(${project_name}
         android
-        cpufeatures
-        app-glue
         atomic
         EGL
         GLESv3
-        ndk-helper
-        dependency-lib
-        ${log-lib}
+        log
 		games-frame-pacing::swappy_static
 		games-performance-tuner::tuningfork_static
+		game-activity::game-activity_static
 		)
