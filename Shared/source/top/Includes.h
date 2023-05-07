@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <stdlib.h>     /* srand, rand */
+#include <unistd.h>
 #include <stdio.h>
 #include <time.h>       /* time */
 #include <iterator>
@@ -24,13 +25,20 @@
 #include <glad/glad.h>  // !include before GLFW!
 #include <GLFW/glfw3.h>
 #elif PLATFORM_ANDROID
-// OpenGL ES and GL context
 #include <EGL/egl.h>
-#include <GLES/gl.h>
 #include <GLES3/gl3.h>
+#include <jni.h>
+#include <errno.h>
+#include <android/sensor.h>
 #include <android/log.h>
-#include <JNIHelper.h>
-#include <GLContext.h>
+#include "game-activity/native_app_glue/android_native_app_glue.h"
+#include <common/include/Log.h>
+#define LOG_TAG "Sample3D"
+#define ABORT_GAME { ALOGE("*** GAME ABORTING."); *((volatile char*)0) = 'a'; }
+#define DEBUG_BLIP ALOGI("[ BLIP ]: %s:%d", __FILE__, __LINE__)
+#define MY_ASSERT(cond) { if (!(cond)) { ALOGE("ASSERTION FAILED: %s", #cond); \
+   ABORT_GAME; } }
+#define BUFFER_OFFSET(i) ((void*)((size_t)i))
 #elif __EMSCRIPTEN__
 #include <emscripten.h>
 #define GL_GLEXT_PROTOTYPES

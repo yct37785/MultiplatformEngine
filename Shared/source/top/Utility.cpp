@@ -28,7 +28,7 @@ int loadShader(std::string sourceFile, std::string shaderType, unsigned int& sha
 	const char* shaderSourceCStr = shaderSource.c_str();
 #elif PLATFORM_ANDROID
 	std::vector<uint8_t> data;
-    ndk_helper::JNIHelper::GetInstance()->ReadFile(sourceFile.c_str(), &data);
+    // ndk_helper::JNIHelper::GetInstance()->ReadFile(sourceFile.c_str(), &data);
     const GLchar *source = (GLchar *)&data[0];
     int32_t iSize = data.size();
 #endif
@@ -156,7 +156,7 @@ void LogInfo(std::string log)
 #if defined(PLATFORM_WINDOWS) || defined(__EMSCRIPTEN__)
 	std::cout << "Info: " << log << std::endl;
 #elif PLATFORM_ANDROID
-    LOGI(log.c_str());
+    ALOGI("%s", log.c_str());
 #endif
 }
 
@@ -165,6 +165,6 @@ void LogWarn(std::string log)
 #if defined(PLATFORM_WINDOWS) || defined(__EMSCRIPTEN__)
 	std::cout << "WARN: " << log << std::endl;
 #elif PLATFORM_ANDROID
-	LOGW(log.c_str());
+    ALOGE("%s", log.c_str());
 #endif
 }
