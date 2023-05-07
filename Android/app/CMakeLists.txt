@@ -10,15 +10,10 @@ project(${project_name})
 # preprocessor definitions
 ADD_DEFINITIONS (-DANDROID_VERSION)
 ADD_DEFINITIONS (-DPLATFORM_ANDROID=1)
-ADD_DEFINITIONS (-DANDROID_ABI=arm64-v8a)	# output for diff. mobile CPUs
-# ADD_DEFINITIONS (-DANDROID_ABI=x86_64)
-# ADD_DEFINITIONS (-DANDROID_ABI=armeabi-v7a)
-# ADD_DEFINITIONS (-DANDROID_ABI=x86)
 
 # include directories
 # eg. include <directories/myfile.h>
 set(android_includes_dir includes)
-set(ndk_helper_dir ${android_includes_dir}/ndk_helper)
 set(shared_includes_dir ../../Shared/includes)
 set(shared_src_dir ../../Shared/source)
 set(android_src_dir src/main/cpp)
@@ -29,37 +24,15 @@ find_package(games-frame-pacing REQUIRED CONFIG)
 find_package(games-performance-tuner REQUIRED CONFIG)
 find_package(game-activity REQUIRED CONFIG)
 
-# build native_app_glue as a static lib (Android includes it as source code only, must built into a .so lib)
-add_library(app-glue STATIC
-        ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c
-		)
-add_library(cpufeatures STATIC
-        ${ANDROID_NDK}/sources/android/cpufeatures/cpu-features.c
-		)
+# Export GameActivity_onCreate(),
+# Refer to: https://github.com/android-ndk/ndk/issues/381.
+set(CMAKE_SHARED_LINKER_FLAGS
+		"${CMAKE_SHARED_LINKER_FLAGS} -u GameActivity_onCreate")
 
-# Build dependency lib to overwrite definitions for subsequent libs/cpp
-add_library(dependency-lib
-        STATIC
-        ${android_includes_dir}/Android_dep/Android_Dependencies.cpp
-        )
-target_include_directories(dependency-lib
-		PRIVATE
-        ${ANDROID_NDK}/sources/android/cpufeatures
-        ${ANDROID_NDK}/sources/android/native_app_glue
-		)
-target_link_libraries(
-        dependency-lib
-        app-glue
-        cpufeatures
-        android
-		)
-
-#add RUNTIME dependency files here for subsequent libs/cpp
-SET(CMAKE_CXX_FLAGS "-include ../../../../includes/Android_dep/Android_Dependencies.h")
-SET(CMAKE_C_FLAGS "-include ../../../../includes/Android_dep/Android_Dependencies.h")
-
-# build the ndk-helper library (builds ndk_helper CMakeLists.txt)
-add_subdirectory(${ndk_helper_dir} ndk_helper)
+# Set common compiler options
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14 -Wall -Werror")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror")
+add_definitions("-DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS")
 
 # group files into one var
 set(SHARED_CAMERA_FILES
@@ -148,13 +121,10 @@ add_library(${project_name} SHARED
 
 # link the include directories
 target_include_directories(${project_name} PRIVATE
-        ${ANDROID_NDK}/sources/android/cpufeatures
-        ${ANDROID_NDK}/sources/android/native_app_glue
         ${shared_src_dir}
         ${shared_includes_dir}
         ${shared_includes_dir}/glm
         ${android_includes_dir}
-        ${ndk_helper_dir}
         )
 
 # link libs to the program
