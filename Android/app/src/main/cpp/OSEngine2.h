@@ -18,6 +18,7 @@
 #define MULTIPLATFORM_OSENGINE2_H
 
 #include <top/Includes.h>
+#include <engine/Engine.h>
 
 struct NativeEngineSavedState {
     bool mHasFocus;
@@ -50,6 +51,9 @@ public:
     JNIEnv *GetAppJniEnv();
 
 private:
+    // OSEngine vars
+    bool inputList[INPUT_TOTAL];
+
     // variables to track Android lifecycle:
     bool mHasFocus, mIsVisible, mHasWindow;
 

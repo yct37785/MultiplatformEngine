@@ -27,10 +27,31 @@ int loadShader(std::string sourceFile, std::string shaderType, unsigned int& sha
 	std::string shaderSource = fileToShaderString(sourceFile);
 	const char* shaderSourceCStr = shaderSource.c_str();
 #elif PLATFORM_ANDROID
-	std::vector<uint8_t> data;
-    // ndk_helper::JNIHelper::GetInstance()->ReadFile(sourceFile.c_str(), &data);
-    const GLchar *source = (GLchar *)&data[0];
-    int32_t iSize = data.size();
+	// std::vector<uint8_t> data;
+//	char buffer[1024];
+//	std::string* source;
+//	FILE *file = fopen(sourceFile.c_str(), "rb");
+//	if (file == NULL) return false;
+//	while (true) {
+//		size_t n = fread(buffer, 1, sizeof(buffer), file);
+//		if (n <= 0) break;
+//		source->append(buffer, n);
+//	}
+//	int error = ferror(file);
+//	if (fclose(file) != 0) return false;
+//	return error == 0;
+	LogInfo("TESTING 123");
+	LogInfo(sourceFile.c_str());
+	std::ifstream t(sourceFile.c_str());
+	t.seekg(0, std::ios::end);
+	int32_t size = t.tellg();
+	std::string buffer(size, ' ');
+	t.seekg(0);
+	t.read(&buffer[0], size);
+	const char* shaderSourceCStr = buffer.c_str();
+	// ndk_helper::JNIHelper::GetInstance()->ReadFile(sourceFile.c_str(), &data);
+    // const GLchar *source = (GLchar *)&data[0];
+    // int32_t iSize = source->size();
 #endif
 
 	// compile vertex shader
@@ -50,7 +71,7 @@ int loadShader(std::string sourceFile, std::string shaderType, unsigned int& sha
 #if defined(PLATFORM_WINDOWS) || defined(__EMSCRIPTEN__)
 	glShaderSource(shaderObject, 1, &shaderSourceCStr, NULL);
 #elif PLATFORM_ANDROID
-    glShaderSource(shaderObject, 1, &source, &iSize);
+    glShaderSource(shaderObject, 1, &shaderSourceCStr, &size);
 #endif
 
 	glCompileShader(shaderObject);

@@ -72,6 +72,7 @@ NativeEngine::NativeEngine(struct android_app *app) {
 
     // SCENE
     // WelcomeScene::InitAboutText(GetJniEnv(), app->activity->javaGameActivity);
+    Engine::instance()->Init();
 
     // This is needed to allow controller events through to us.
     // By default, only touch-screen events are passed through, to match the
@@ -122,6 +123,12 @@ NativeEngine::~NativeEngine() {
         mJniEnv = NULL;
     }
     _singleton = NULL;
+    // SCENE
+    delete MaterialBuilder::instance();
+    delete TextureBuilder::instance();
+    delete MeshBuilder::instance();
+    delete ShaderManager::instance();
+    delete Engine::instance();
 }
 
 static void _handle_cmd_proxy(struct android_app *app, int32_t cmd) {
@@ -597,6 +604,8 @@ void NativeEngine::DoFrame() {
     // render!
     // SCENE
     // mgr->DoFrame();
+    Engine::instance()->Update(inputList, 0.01f);
+    Engine::instance()->Draw();
 
     // swap buffers
     if (!SwappyGL_swap(mEglDisplay, mEglSurface)) {        // failed to swap buffers...
